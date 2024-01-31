@@ -16,11 +16,12 @@ use App\Http\Controllers\InmobiliariaController;
 |
 */
 
-/*Acceso con rutas
+//Acceso con rutas
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
+/*
 Route::get('/inmobiliaria', function () {
     return view('inmobiliaria.index');
 });
@@ -32,8 +33,15 @@ Route::get('/inmobiliaria/create', [InmobiliariaController::class,'create']);
 /*Con esta instrucción cambio todas las solicitudes de las vistas 
 es decir acceder a todas las vistas 
 */
-Route::resource('inmobiliaria',InmobiliariaController::class);
+Route::resource('inmobiliaria',InmobiliariaController::class)->middleware('auth');
 
-Auth::routes();
+Auth::routes(['register'=>false,'reset'=>false]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [InmobiliariaController::class, 'index'])->name('home');
+
+Route::group(['middleware' => 'auth'], function() {
+
+    Route::get('/', [InmobiliariaController::class, 'index'])->name('home');
+
+});
+

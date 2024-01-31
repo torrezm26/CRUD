@@ -1,10 +1,14 @@
-Formulario de creacion de inmobiliarios
+@extends('layouts.app')
 
-<form action="{{url('/inmobiliaria')}}" method="post">
-<!---Identificador/llave de seguridad-->
-@csrf
-@include('inmobiliaria.form',['modo'=>'Crear']);
+@section('content')
+<div class="container">
 
-</form>
+    <form action="{{url('/inmobiliaria')}}" method="post">
+    <!---Identificador/llave de seguridad-->
+    @csrf
+    @include('inmobiliaria.form',['modo'=>'Crear']);
 
+    </form>
+</div>
+@endsection
 

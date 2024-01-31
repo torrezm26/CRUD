@@ -1,7 +1,15 @@
-<form action=" {{ url('/inmobiliaria/'.$inmobiliaria->id ) }}" method="post">
-@csrf
-{{ method_field('PATCH') }}
+@extends('layouts.app')
 
-@include('inmobiliaria.form',['modo'=>'Editar']);
+@section('content')
+<div class="container">
 
-</form>
+    <form action=" {{ url('/inmobiliaria/'.$inmobiliaria->id ) }}" method="post">
+    @csrf
+    {{ method_field('PATCH') }}
+
+    @include('inmobiliaria.form',['modo'=>'Editar']);
+
+    </form>
+
+</div>
+@endsection
