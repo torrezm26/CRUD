@@ -1,4 +1,9 @@
-mostrar la lista de inmobilia
+@if(Session::has('mensaje'))
+{{ Session::get('mensaje') }}
+
+@endif
+
+<a href="{{ url('inmobiliaria/create') }}">Registrar nueva inmoviliaria</a>
 <table class="table table-light">
     <thead class="thead-light">
         <tr>
@@ -22,7 +27,7 @@ mostrar la lista de inmobilia
             <a href="{{ url('/inmobiliaria/'.$inmobiliarias->id.'/edit') }}">         
                 Editar 
             </a>
-            |
+
             <form action="{{ url('/inmobiliaria/'.$inmobiliarias->id ) }}" method="post">
             @csrf 
             {{ method_field('DELETE') }}

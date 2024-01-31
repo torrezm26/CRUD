@@ -41,7 +41,11 @@ class InmobiliariaController extends Controller
 
         //Insertamos toda la información en la BD
         inmobiliaria::insert($datosInmobiliaria);
-        return response()->json($datosInmobiliaria);
+
+        //return response()->json($datosInmobiliaria);
+
+        return redirect('inmobiliaria')->with('mensaje','Inmobiliaria agregada con éxito');
+        
     }
 
     /**
@@ -55,18 +59,24 @@ class InmobiliariaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(inmobiliaria $inmobiliaria)
+    public function edit($id)
     {
         //
-        return view('inmobiliaria.create');
+        $inmobiliaria=inmobiliaria::findOrFail($id);
+        return view('inmobiliaria.edit', compact('inmobiliaria') );
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, inmobiliaria $inmobiliaria)
+    public function update(Request $request, $id)
     {
         //
+        $datosInmobiliaria = request()->except(['_token','_method']);
+        inmobiliaria::where('id','=',$id)->update($datosInmobiliaria);
+
+        $inmobiliaria=inmobiliaria::findOrFail($id);
+        return view('inmobiliaria.edit', compact('inmobiliaria') );
     }
 
     /**
@@ -76,6 +86,6 @@ class InmobiliariaController extends Controller
     {
         //
         inmobiliaria::destroy($id);
-        return redirect('inmobiliaria');
+        return redirect('inmobiliaria')->with('mensaje','Inmobiliaria borrada');
     }
 }
