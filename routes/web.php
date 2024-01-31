@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+//Acceso a través de clase - desde controller
+use App\Http\Controllers\InmobiliariaController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,9 +16,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/*Acceso con rutas
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/inmobiliaria', function () {
+    return view('inmobiliaria.index');
+});
+
+Accedemos directamente al controller y al método create
+Route::get('/inmobiliaria/create', [InmobiliariaController::class,'create']);
+*/
+
+/*Con esta instrucción cambio todas las solicitudes de las vistas 
+es decir acceder a todas las vistas 
+*/
+Route::resource('inmobiliaria',InmobiliariaController::class);
 
 Auth::routes();
 

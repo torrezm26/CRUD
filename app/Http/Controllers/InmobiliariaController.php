@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\inmobiliaria;
+use App\Models\inmobiliaria; 
 use Illuminate\Http\Request;
 
 class InmobiliariaController extends Controller
@@ -13,6 +13,7 @@ class InmobiliariaController extends Controller
     public function index()
     {
         //
+        return view('inmobiliaria.index');
     }
 
     /**
@@ -20,7 +21,8 @@ class InmobiliariaController extends Controller
      */
     public function create()
     {
-        //
+        //acceso a través de una clase
+        return view('inmobiliaria.create');
     }
 
     /**
@@ -28,7 +30,16 @@ class InmobiliariaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        /*Usamos token, recolectamos todos los datos
+        $datosInmobiliaria = request()->all();
+        */
+
+
+        //Eliminamos el uso del token, recolectamos datos 
+        $datosInmobiliaria = request()->except('_token');
+        //Insertamos toda la información en la BD
+        Inmobiliaria::insert($datosInmobiliaria);
+        return response()->json($datosInmobiliaria);
     }
 
     /**
