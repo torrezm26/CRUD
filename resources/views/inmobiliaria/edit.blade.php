@@ -1,1 +1,1 @@
-formulario de edición de inmobiliarios
+@include('inmobiliaria.form');

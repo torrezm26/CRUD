@@ -12,8 +12,9 @@ class InmobiliariaController extends Controller
      */
     public function index()
     {
-        //
-        return view('inmobiliaria.index');
+        //proporcionamos al index los datos
+        $datos['inmobiliaria']=inmobiliaria::paginate(5);
+        return view('inmobiliaria.index', $datos);
     }
 
     /**
@@ -37,8 +38,9 @@ class InmobiliariaController extends Controller
 
         //Eliminamos el uso del token, recolectamos datos 
         $datosInmobiliaria = request()->except('_token');
+
         //Insertamos toda la información en la BD
-        Inmobiliaria::insert($datosInmobiliaria);
+        inmobiliaria::insert($datosInmobiliaria);
         return response()->json($datosInmobiliaria);
     }
 
@@ -56,6 +58,7 @@ class InmobiliariaController extends Controller
     public function edit(inmobiliaria $inmobiliaria)
     {
         //
+        return view('inmobiliaria.create');
     }
 
     /**
@@ -69,8 +72,10 @@ class InmobiliariaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(inmobiliaria $inmobiliaria)
+    public function destroy($id)
     {
         //
+        inmobiliaria::destroy($id);
+        return redirect('inmobiliaria');
     }
 }
